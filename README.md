@@ -124,7 +124,7 @@ mvn clean test
 
 O sistema atendeu ao critério de tempo de resposta (p90 < 2s), porém não atingiu o throughput esperado de 250 req/s.
 
-Possíveis fatores:
+Fatores:
 - Execução em ambiente público (BlazeDemo)
 - Limitação de recursos locais
 - Capacidade do servidor alvo
@@ -142,4 +142,4 @@ Este repositório possui um workflow configurado para executar os testes de API 
 
 ## 👨🏾‍💻 Autor
 
-Desenvolvido por um Senior QA Engineer focado em qualidade contínua.
+Desenvolvido por Fernando Damasio Senior QA Engineer focado em qualidade contínua.
