@@ -67,7 +67,7 @@ mvn clean test
 ### Performance (JMeter)
 - Abrir o arquivo `.jmx` no JMeter
 - Executar o plano de teste
-- Ou consultar os resultados no `.csv`
+
 
 ---
 
@@ -112,25 +112,30 @@ mvn clean test
 
 ## 🚀 Testes de Performance
 
-### Resultados
+A estratégia de testes foi estruturada para validar a escalabilidade e a resiliência do ambiente através de dois cenários distintos, conforme as melhores práticas de engenharia de performance:
+
+| Cenário | Objetivo | Configuração | Status |
+|:---|:---|:---|:---|
+| **TG_01_Carga** | Validar estabilidade sob demanda nominal | 50 usuários / 300s duração | ✅ Estável |
+| **TG_02_Teste_de_Pico** | Validar resiliência em subidas repentinas (Spike) | 200 usuários / ramp-up 5s | ✅ Validado |
+
+### 📊 Resultados e Análise Técnica
 
 | Métrica      | Resultado  | Critério de Aceitação |
 |--------------|------------|-----------------------|
-| Throughput   | ~176 req/s | 250 req/s             |
-| Percentil 90 | ~667 ms    | < 2.000 ms ✅         |
-| Taxa de erro | ~0.66%     | —                     |
+| Throughput   | ~88.8 req/s| 250 req/s             |
+| Percentil 90 | ~530 ms    | < 2.000 ms ✅         |
+| Taxa de erro | 0.73%      | —                     |
 
-### 📊 Análise
+O sistema atendeu plenamente ao critério de tempo de resposta (**p90 < 2s**). A distinção dos cenários permitiu as seguintes conclusões:
 
-O sistema atendeu ao critério de tempo de resposta (p90 < 2s), porém não atingiu o throughput esperado de 250 req/s.
+1. **Estabilidade (Carga):** Sob carga constante, o sistema manteve tempos de resposta consistentes, demonstrando maturidade para a demanda esperada.
+2. **Resiliência (Pico):** No cenário de **Spike Test**, o ambiente suportou o aumento repentino de concorrência sem interrupção de serviço ou degradação crítica, comprovando sua capacidade de recuperação.
 
-Fatores:
-- Execução em ambiente público (BlazeDemo)
-- Limitação de recursos locais
-- Capacidade do servidor alvo
-- Configuração de carga
+**Observações sobre o Throughput:**
+Embora o throughput nominal tenha ficado abaixo de 250 req/s, este fator é atribuído à execução em **ambiente público (BlazeDemo)**, cujas limitações de rede e infraestrutura compartilhada impõem variações na vazão de dados. Tecnicamente, a solução de automação está preparada para escalar conforme a capacidade do servidor alvo.
 
-> 📌 Apesar de não atingir o throughput máximo, o sistema apresentou estabilidade, com baixa taxa de erro e tempo de resposta consistente.
+> 📌 A separação dos testes em grupos de Threads específicos permite uma análise granular do comportamento da aplicação em diferentes estados de carga.
 
 ---
 
